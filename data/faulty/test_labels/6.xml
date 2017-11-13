@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test_images</folder>
+	<filename>6.jpg</filename>
+	<path>/home/bartek/Workspace/isolators/data/faulty/test_images/6.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>133</width>
+		<height>143</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>gap</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>23</xmin>
+			<ymin>2</ymin>
+			<xmax>95</xmax>
+			<ymax>58</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train_images</folder>
+	<filename>82.jpg</filename>
+	<path>/home/bartek/Workspace/isolators/data/isolators/train_images/82.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>800</width>
+		<height>450</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>isolator</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>190</xmin>
+			<ymin>150</ymin>
+			<xmax>589</xmax>
+			<ymax>292</ymax>
+		</bndbox>
+	</object>
+</annotation>

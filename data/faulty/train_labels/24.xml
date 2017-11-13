@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train_images</folder>
+	<filename>24.jpg</filename>
+	<path>/home/bartek/Workspace/isolators/data/faulty/train_images/24.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>22</width>
+		<height>44</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>gap</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>2</xmin>
+			<ymin>13</ymin>
+			<xmax>19</xmax>
+			<ymax>33</ymax>
+		</bndbox>
+	</object>
+</annotation>
