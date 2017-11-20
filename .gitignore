@@ -8,9 +8,17 @@ models/rcnn_faulty/eval/*
 models/rcnn_isolators/eval/*
 models/rcnn_faulty/train/*
 models/rcnn_isolators/train/*
+models/ssd_faulty/train/*
+models/ssd_faulty/eval/*
+models/ssd_faulty/output_graph.pb/*
+models/ssd_isolators/train/*
+models/ssd_isolators/eval/*
+models/ssd_isolators/output_graph.pb/*
 
 models/rcnn_test
 
+
+data/videos
 data/BAK
 data/other
 data/main

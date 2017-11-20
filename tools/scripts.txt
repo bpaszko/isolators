@@ -51,7 +51,58 @@ python object_detection/export_inference_graph.py \
   --output_directory /home/bartek/Workspace/isolators/models/rcnn_faulty/output_graph.pb
 
 
+--------------------------------------------------------------------------
 
+# ISOLATORS SDD
+
+# TRAIN
+python object_detection/train.py \
+    --logtostderr \
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/ssd_isolators/mobilenet_coco.config \
+    --train_dir=/home/bartek/Workspace/isolators/models/ssd_isolators/train
+
+
+# EVAL
+CUDA_VISIBLE_DEVICES=100 python object_detection/eval.py \
+    --logtostderr \
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/ssd_isolators/mobilenet_coco.config \
+    --checkpoint_dir=/home/bartek/Workspace/isolators/models/ssd_isolators/train \
+    --eval_dir=/home/bartek/Workspace/isolators/models/ssd_isolators/eval
+
+# EXPORT
+python object_detection/export_inference_graph.py \
+  --input_type image_tensor \
+  --pipeline_config_path /home/bartek/Workspace/isolators/models/ssd_isolators/mobilenet_coco.config \
+  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/ssd_isolators/train/model.ckpt-13475  \
+  --output_directory /home/bartek/Workspace/isolators/models/ssd_isolators/output_graph.pb
+
+
+---------------------------------------------------------------------------
+
+# FAULTY SDD
+
+# TRAIN
+python object_detection/train.py \
+    --logtostderr \
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/ssd_faulty/mobilenet_coco.config \
+    --train_dir=/home/bartek/Workspace/isolators/models/ssd_faulty/train
+
+# EVAL
+CUDA_VISIBLE_DEVICES=100 python object_detection/eval.py \
+    --logtostderr \
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/ssd_faulty/mobilenet_coco.config \
+    --checkpoint_dir=/home/bartek/Workspace/isolators/models/ssd_faulty/train \
+    --eval_dir=/home/bartek/Workspace/isolators/models/ssd_faulty/eval
+
+# EXPORT
+python object_detection/export_inference_graph.py \
+  --input_type image_tensor \
+  --pipeline_config_path /home/bartek/Workspace/isolators/models/ssd_faulty/mobilenet_coco.config  \
+  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/ssd_faulty/train/model.ckpt-12000 \
+  --output_directory /home/bartek/Workspace/isolators/models/ssd_faulty/output_graph.pb
+
+
+--------------------------------------------------------------------------
 
 python object_detection/train.py \
     --logtostderr \

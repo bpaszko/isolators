@@ -1,7 +1,8 @@
-from tools.utils import open_images
 from detection.main_detector import MainDetector
+from basic.datahandlers import *
 
 import os
+import time
 import argparse
 
 
@@ -24,22 +25,24 @@ def parse_args():
     return args
 
 
-def get_images(source_path):
+def get_data_handler(source_path, save_path):
     if os.path.isdir(source_path):
-        images_paths = [os.path.join(source_path, img) for img in os.listdir(source_path)]
-        return open_images(images_paths)
+        return DirectoryHandler(source_path)
+    elif source_path.endswith('.mp4'):
+        return VideoHandler(source_path, save_path=save_path, max_frames=5)
     else:
-        return open_images(source_path)
+        return ImageHandler(source_path)
 
 
 def main():
     args = parse_args()
     config_path, source_path = args['config_path'], args['image_path']
     save_path, visualise = args['save_path'], args['show']
-    app = MainDetector(config_path)
-    images = get_images(source_path)
-    app.run_detection(images, save_path, show=visualise)
-
+    data_handler = get_data_handler(source_path, save_path)
+    app = MainDetector(config_path, data_handler)
+    t1 = time.time()
+    app.run_detection()
+    print(time.time()-t1)
 
 if __name__ == '__main__':
     main()

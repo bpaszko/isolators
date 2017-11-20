@@ -31,7 +31,7 @@ class Validator:
                     continue
 
                 images.append(np.array(image))
-            predictions = [[p for p in p_img if p.score >= 0.9 and p.name == 1] for p_img in self.detector.detect(images)]
+            predictions = [[p for p in p_img if p.score >= 0.75 and p.name == 1] for p_img in self.detector.detect(images)]
 
             for image_labels, image_predictions in zip(labels, predictions):
                 frames = [Frame(label['xmin'] / label['width'], label['ymin'] / label['height'],
@@ -50,7 +50,7 @@ class Validator:
             except Exception:
                 continue
             images.append(np.array(image))
-        predictions = [[p for p in p_img if p.score >= 0.9 and p.name == 1] for p_img in self.detector.detect(images)]
+        predictions = [[p for p in p_img if p.score >= 0.75 and p.name == 1] for p_img in self.detector.detect(images)]
         for i, p in enumerate(predictions):
             if p:
                 self.false_positives += len(p)

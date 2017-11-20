@@ -2,6 +2,8 @@ from collections import namedtuple
 import matplotlib.pyplot as plt
 from PIL import Image
 import numpy as np
+import cv2
+import skvideo.io
 
 
 def split_by_filename(df, group):
@@ -37,11 +39,31 @@ def open_images(paths):
     return images
 
 
+def read_avi(path):
+    cap = skvideo.io.vreader(path)
+
+    frames = []
+    for frame in cap:
+        frames.append(frame)
+    return frames
+
+
 def show_prediction(image, prediction, color):
     height, width, _ = image.shape
     x1, y1 = prediction.xmin * width, prediction.ymin * height
     x2, y2 = prediction.xmax * width, prediction.ymax * height
     plt.plot([x1, x2, x2, x1, x1], [y1, y1, y2, y2, y1], color=color)
+
+
+def draw_prediction(image, prediction, color):
+    colors = {'red': (255, 0, 0),
+              'green': (0, 255, 0)
+              }
+    height, width, _ = image.shape
+    x1, y1 = int(prediction.xmin * width), int(prediction.ymin * height)
+    x2, y2 = int(prediction.xmax * width), int(prediction.ymax * height)
+    cv2.rectangle(image, (x1, y1), (x2, y2), colors[color], 5)
+    return image
 
 
 def visualise(image, best):
