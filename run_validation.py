@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from validation.validator import Validator
+from validation.directory_validator import Validator
 
 
 def parse_args():

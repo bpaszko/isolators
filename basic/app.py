@@ -1,4 +1,4 @@
-from tools.utils import get_data_handler
+from basic.datahandlers.utils import get_data_handler
 
 
 class App:
@@ -14,8 +14,8 @@ class App:
         detections = []
         for images_batch in self.data_handler:
             detections_batch = self.detector.run_detection(images_batch)
-            processed_images = self.painter.draw_predictions(images_batch, detections_batch)
-            self.data_handler.save(processed_images)
+            self.painter.draw_predictions(images_batch, detections_batch)
+            self.data_handler.save(images_batch)
             detections.append(detections_batch)
         self.data_handler.close()
         return detections
