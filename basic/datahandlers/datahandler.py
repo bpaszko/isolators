@@ -10,3 +10,6 @@ class DataHandler:
 
     def save(self):
         raise NotImplementedError
+
+    def close(self):
+        pass

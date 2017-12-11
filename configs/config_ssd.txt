@@ -1,5 +1,7 @@
 # isolators model
 /home/bartek/Workspace/isolators/models/ssd_isolators/output_graph.pb/frozen_inference_graph.pb
+0.7
 
 # faults model
 /home/bartek/Workspace/isolators/models/ssd_faulty/output_graph.pb/frozen_inference_graph.pb
+0.7

@@ -3,7 +3,7 @@ from PIL import Image
 import argparse
 import os
 
-from tools.utils import split_by_filename
+from utils import split_by_filename
 
 
 def parse_args():

@@ -11,7 +11,9 @@ class VideoHandler(DataHandler):
         self.reader = skvideo.io.vreader(self.video_path)
         self.max_frames = max_frames
         self.save_path = self._create_save_path(save_path)
-        self.writer = skvideo.io.FFmpegWriter(self.save_path)
+        self.writer = None
+        if self.save_path:
+            self.writer = skvideo.io.FFmpegWriter(self.save_path)
 
     def __iter__(self):
         return self
@@ -30,21 +32,26 @@ class VideoHandler(DataHandler):
                 raise StopIteration
 
             return np.array(frames)
+        except:
+            return np.array(frames)
 
     def save(self, images):
+        if not self.writer:
+            return
+
         images = np.array(images)
         for image in images:
             self.writer.writeFrame(image)
 
     def close(self):
-        self.writer.close()
+        if self.writer:
+            self.writer.close()
 
     def _create_save_path(self, path):
         save_path = path
         if not path:
-            parts = self.video_path.split('/')
-            name = 'processed_' + parts[-1]
-            save_path = os.path.join('/'.join(parts[:-1]), name)
+            return None
+
         elif os.path.isdir(path):
             parts = self.video_path.split('/')
             name = 'processed_' + parts[-1]

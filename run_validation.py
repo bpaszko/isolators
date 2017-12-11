@@ -5,7 +5,8 @@ from validation.validator import Validator
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Run detection on single image. Uses only one model.')
+    parser = argparse.ArgumentParser(description='Run validation on directory or labels.csv. Uses only one model.')
+    parser.add_argument('--threshold', default=0.9, help='Classification threshold (between 0 and 1)')
     required_named = parser.add_argument_group('Required keyword arguments')
     required_named.add_argument('--model_path', required=True, help='Path to model')
     required_named.add_argument('--eval_path', required=True, help='Path to labels.csv or \
@@ -22,7 +23,8 @@ def parse_args():
 def main():
     args = parse_args()
     path_to_model, eval_path = args['model_path'], args['eval_path']
-    validator = Validator(path_to_model)
+    threshold = float(args['threshold'])
+    validator = Validator(path_to_model, threshold)
     if eval_path.endswith('.csv'):
         validator.evaluate([eval_path])
     else:

@@ -2,16 +2,19 @@ import os
 
 from basic.datahandlers import DataHandler
 from tools.utils import open_images
+from PIL import Image
 
 
 class DirectoryHandler(DataHandler):
     """ Loads images from directory. Assumes that all images have the same size """
 
-    def __init__(self, directory_path, max_images=1000):
+    def __init__(self, directory_path, save_path=None, max_images=200):
         self.directory_path = directory_path
+        self._save_path = save_path
+        self.max_images = max_images
+
         self._images_paths = self._get_paths()
         self._current_image = 0
-        self.max_images = max_images
 
     def __iter__(self):
         return self
@@ -25,8 +28,15 @@ class DirectoryHandler(DataHandler):
         self._current_image += self.max_images
         return images
 
-    def save(self):
-        pass
+    def save(self, images):
+        if not self._save_path:
+            return
+
+        for image, src_path in zip(images, self._images_paths[self._current_image - self.max_images:self._current_image]):
+            name = src_path.split('/')[-1]
+            dst_path = os.path.join(self._save_path, name)
+            pil_image = Image.fromarray(image)
+            pil_image.save(dst_path)
 
     def _get_paths(self):
         if not os.path.isdir(self.directory_path):

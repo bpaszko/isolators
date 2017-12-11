@@ -10,13 +10,14 @@ from detection.detector import Detector
 
 
 class Validator:
-    def __init__(self, path_to_model):
+    def __init__(self, path_to_model, threshold=0.9):
         self.detector = Detector(path_to_model)
         self.true_positives = 0
         self.false_positives = 0
         self.true_negatives = 0
         self.false_negatives = 0
         self.total = 0
+        self.threshold = threshold
 
     def evaluate(self, labels_paths):
         for path in labels_paths:
@@ -31,7 +32,7 @@ class Validator:
                     continue
 
                 images.append(np.array(image))
-            predictions = [[p for p in p_img if p.score >= 0.75 and p.name == 1] for p_img in self.detector.detect(images)]
+            predictions = [[p for p in p_img if p.score >= self.threshold and p.name == 1] for p_img in self.detector.detect(images)]
 
             for image_labels, image_predictions in zip(labels, predictions):
                 frames = [Frame(label['xmin'] / label['width'], label['ymin'] / label['height'],
@@ -50,7 +51,7 @@ class Validator:
             except Exception:
                 continue
             images.append(np.array(image))
-        predictions = [[p for p in p_img if p.score >= 0.75 and p.name == 1] for p_img in self.detector.detect(images)]
+        predictions = [[p for p in p_img if p.score >= self.threshold and p.name == 1] for p_img in self.detector.detect(images)]
         for i, p in enumerate(predictions):
             if p:
                 self.false_positives += len(p)

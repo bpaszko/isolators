@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>110.jpg</filename>
+	<path>/home/bartek/Workspace/isolators/data/main/images/110.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>450</width>
+		<height>321</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>isolator</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>35</xmin>
+			<ymin>171</ymin>
+			<xmax>210</xmax>
+			<ymax>206</ymax>
+		</bndbox>
+	</object>
+</annotation>

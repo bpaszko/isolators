@@ -1,5 +1,7 @@
 # isolators model
-/home/bartek/Workspace/isolators/models/rcnn_test/output_graph.pb/frozen_inference_graph.pb
+/home/bartek/Workspace/isolators/models/rcnn_test/output_graph4000.pb/frozen_inference_graph.pb
+0.9
 
 # faults model
 /home/bartek/Workspace/isolators/models/rcnn_faulty/output_graph.pb/frozen_inference_graph.pb
+0.9

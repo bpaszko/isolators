@@ -7,23 +7,23 @@
 # TRAIN
 python object_detection/train.py \
     --logtostderr \
-    --pipeline_config_path=/home/bartek/Workspace/isolators/models/rcnn_isolators/faster_rcnn_resnet101_coco.config \
-    --train_dir=/home/bartek/Workspace/isolators/models/rcnn_isolators/train
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/rcnn_test/faster_rcnn_resnet101_coco.config \
+    --train_dir=/home/bartek/Workspace/isolators/models/rcnn_test/train
 
 
 # EVAL
 CUDA_VISIBLE_DEVICES=100 python object_detection/eval.py \
     --logtostderr \
-    --pipeline_config_path=/home/bartek/Workspace/isolators/models/rcnn_isolators/faster_rcnn_resnet101_coco.config \
-    --checkpoint_dir=/home/bartek/Workspace/isolators/models/rcnn_isolators/train \
-    --eval_dir=/home/bartek/Workspace/isolators/models/rcnn_isolators/eval
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/rcnn_test/faster_rcnn_resnet101_coco.config \
+    --checkpoint_dir=/home/bartek/Workspace/isolators/models/rcnn_test/train \
+    --eval_dir=/home/bartek/Workspace/isolators/models/rcnn_test/eval
 
 # EXPORT
 python object_detection/export_inference_graph.py \
   --input_type image_tensor \
-  --pipeline_config_path /home/bartek/Workspace/isolators/models/rcnn_isolators/faster_rcnn_resnet101_coco.config \
-  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/rcnn_isolators/train/model.ckpt-12000  \
-  --output_directory /home/bartek/Workspace/isolators/models/rcnn_isolators/output_graph.pb
+  --pipeline_config_path /home/bartek/Workspace/isolators/models/rcnn_test/faster_rcnn_resnet101_coco.config \
+  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/rcnn_test/train/model.ckpt-6000  \
+  --output_directory /home/bartek/Workspace/isolators/models/rcnn_test/output_graph.pb
 
 
 ---------------------------------------------------------------------------
@@ -47,13 +47,13 @@ CUDA_VISIBLE_DEVICES=100 python object_detection/eval.py \
 python object_detection/export_inference_graph.py \
   --input_type image_tensor \
   --pipeline_config_path /home/bartek/Workspace/isolators/models/rcnn_faulty/faster_rcnn_resnet101_coco.config  \
-  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/rcnn_faulty/train/model.ckpt-10000 \
+  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/rcnn_faulty/train/model.ckpt-12000 \
   --output_directory /home/bartek/Workspace/isolators/models/rcnn_faulty/output_graph.pb
 
 
 --------------------------------------------------------------------------
 
-# ISOLATORS SDD
+# ISOLATORS SSD
 
 # TRAIN
 python object_detection/train.py \
@@ -73,13 +73,13 @@ CUDA_VISIBLE_DEVICES=100 python object_detection/eval.py \
 python object_detection/export_inference_graph.py \
   --input_type image_tensor \
   --pipeline_config_path /home/bartek/Workspace/isolators/models/ssd_isolators/mobilenet_coco.config \
-  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/ssd_isolators/train/model.ckpt-13475  \
+  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/ssd_isolators/train/model.ckpt-12000  \
   --output_directory /home/bartek/Workspace/isolators/models/ssd_isolators/output_graph.pb
 
 
 ---------------------------------------------------------------------------
 
-# FAULTY SDD
+# FAULTY SSD
 
 # TRAIN
 python object_detection/train.py \
@@ -104,13 +104,35 @@ python object_detection/export_inference_graph.py \
 
 --------------------------------------------------------------------------
 
+
+# ISOLATORS SSD INCEPTION
+
+# TRAIN
 python object_detection/train.py \
     --logtostderr \
-    --pipeline_config_path=/home/bartek/Workspace/isolators/models/rcnn_test/faster_rcnn_resnet101_coco.config \
-    --train_dir=/home/bartek/Workspace/isolators/models/rcnn_test/train
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/ssd_test_adam/ssd_inception_v2_coco.config \
+    --train_dir=/home/bartek/Workspace/isolators/models/ssd_test_adam/train
 
+
+# EVAL
 CUDA_VISIBLE_DEVICES=100 python object_detection/eval.py \
     --logtostderr \
-    --pipeline_config_path=/home/bartek/Workspace/isolators/models/rcnn_test/faster_rcnn_resnet101_coco.config \
-    --checkpoint_dir=/home/bartek/Workspace/isolators/models/rcnn_test/train \
-    --eval_dir=/home/bartek/Workspace/isolators/models/rcnn_test/eval
+    --pipeline_config_path=/home/bartek/Workspace/isolators/models/ssd_test_adam/ssd_inception_v2_coco.config \
+    --checkpoint_dir=/home/bartek/Workspace/isolators/models/ssd_test_adam/train \
+    --eval_dir=/home/bartek/Workspace/isolators/models/ssd_test_adam/eval
+
+# EXPORT
+CUDA_VISIBLE_DEVICES=101 python object_detection/export_inference_graph.py \
+  --input_type image_tensor \
+  --pipeline_config_path /home/bartek/Workspace/isolators/models/ssd_test/ssd_inception_v2_coco.config \
+  --trained_checkpoint_prefix /home/bartek/Workspace/isolators/models/ssd_test/train/model.ckpt-25000  \
+  --output_directory /home/bartek/Workspace/isolators/models/ssd_test/output_graph.pb
+
+
+
+----------------------------------------------------------------------------
+
+python run.py --config_path=configs/config_ssd.txt --image_path=data/videos/preprocessed/video1.mp4 --save_path=data/videos/processed/processed_video1_ssd.mp4;
+python run.py --config_path=configs/config_ssd.txt --image_path=data/videos/preprocessed/video2.mp4 --save_path=data/videos/processed/processed_video2_ssd.mp4;
+python run.py --config_path=configs/config_ssd.txt --image_path=data/videos/preprocessed/video3.mp4 --save_path=data/videos/processed/processed_video3_ssd.mp4;
+python run.py --config_path=configs/config_ssd.txt --image_path=data/videos/preprocessed/video4_gap.mp4 --save_path=data/videos/processed/processed_video4_gap_ssd.mp4;

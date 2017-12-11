@@ -2,13 +2,16 @@ from basic.datahandlers import DataHandler
 from tools.utils import open_images
 
 
-class ImageHandler(DataHandler):
+class ImageHandler(DataHandler):  # TODO
     """ Loads images from given paths or directory one by one. Assumes they have different shapes and cannot be
         batched together.
         """
 
-    def __init__(self, images_paths):
-        self.images_paths = images_paths
+    def __init__(self, images_paths, save_path, max_images):
+        self._images_paths = images_paths
+        self._save_path = save_path
+        self._max_images = max_images
+
         self._current_image = 0
 
     def __iter__(self):
