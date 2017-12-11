@@ -1,5 +1,5 @@
 from detection.detector import Detector
-from tools.utils import extract_predictions_from_image, draw_prediction
+from tools.utils import extract_predictions_from_image
 from basic.prediction import Prediction
 
 

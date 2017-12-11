@@ -38,8 +38,7 @@ class SingleValidator:
             else:
                 self.score['correct'] += 1
                 labels.remove(label)
-
-                self.score['not_found'] += len(labels)
+        self.score['not_found'] += len(labels)
 
     def __repr__(self):
         return '#### RESULTS ####\n' \

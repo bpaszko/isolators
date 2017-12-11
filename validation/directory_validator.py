@@ -11,12 +11,11 @@ class DirectoryValidator:
         self.threshold = threshold
 
     def evaluate(self, dir_path):
-        paths = os.listdir(dir_path)
+        paths = [os.path.join(dir_path, name) for name in os.listdir(dir_path)]
         images = open_images(paths)
         unfiltered_predictions = self.detector.detect(images)
         predictions = [[p for p in p_img if p.score >= self.threshold and p.name == 1]
                        for p_img in unfiltered_predictions]
-
         for image_predictions in predictions:
             if image_predictions:
                 self.found_incorrect += len(image_predictions)

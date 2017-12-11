@@ -1,4 +1,4 @@
-def check_overlap(frame1, frame2, threshold=0.7):
+def check_overlap(frame1, frame2, threshold=0.6):
     overlap = frame1.count_overlap(frame2)
     return overlap / frame1.area >= threshold and overlap / frame2.area >= threshold
 
